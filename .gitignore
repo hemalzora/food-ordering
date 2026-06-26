@@ -1,0 +1,42 @@
+# ===== Build output =====
+target/
+build/
+out/
+*.jar
+*.war
+*.class
+
+# ===== Maven =====
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# ===== IDEs =====
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.project
+.classpath
+*.code-workspace
+
+# ===== Logs =====
+*.log
+logs/
+
+# ===== Environment / secrets =====
+.env
+.env.*
+*.local
+
+# ===== OS files =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== Node (for future frontend) =====
+node_modules/
+dist/
+.npm/
+.pnp.*
