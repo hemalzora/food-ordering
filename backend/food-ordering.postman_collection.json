@@ -1,0 +1,917 @@
+{
+  "info": {
+    "_postman_id": "22818807-a4c3-4205-997c-4d713484b493",
+    "name": "Food Ordering \u2014 Backend (CRUD baseline)",
+    "description": "Tests for restaurant-service (8081), user-service (8082), order-service (8083). Run top to bottom: Create/Register/Add requests auto-store the new id into collection variables. Defaults: restaurantId=5 (Kohli Sweet), menuItemId=6 (Chicken Burger), userId=2 (seeded Karan).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "restaurant-service (8081)",
+      "item": [
+        {
+          "name": "List restaurants",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{restaurantUrl}}/api/restaurants",
+              "host": [
+                "{{restaurantUrl}}"
+              ],
+              "path": [
+                "api",
+                "restaurants"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get restaurant by id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{restaurantUrl}}/api/restaurants/{{restaurantId}}",
+              "host": [
+                "{{restaurantUrl}}"
+              ],
+              "path": [
+                "api",
+                "restaurants",
+                "{{restaurantId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create restaurant",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{restaurantUrl}}/api/restaurants",
+              "host": [
+                "{{restaurantUrl}}"
+              ],
+              "path": [
+                "api",
+                "restaurants"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Diner\",\n  \"email\": \"test@diner.com\",\n  \"phone\": \"9990001112\",\n  \"address\": \"MG Road, Patiala\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code < 300 && pm.response.text()) {",
+                  "  pm.collectionVariables.set('restaurantId', pm.response.json().restaurantId);",
+                  "  console.log('set restaurantId =', pm.collectionVariables.get('restaurantId'));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update restaurant",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{restaurantUrl}}/api/restaurants/{{restaurantId}}",
+              "host": [
+                "{{restaurantUrl}}"
+              ],
+              "path": [
+                "api",
+                "restaurants",
+                "{{restaurantId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Diner (updated)\",\n  \"email\": \"test@diner.com\",\n  \"phone\": \"9990001112\",\n  \"address\": \"Mall Road, Patiala\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List menu of restaurant",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{restaurantUrl}}/api/restaurants/{{restaurantId}}/menu",
+              "host": [
+                "{{restaurantUrl}}"
+              ],
+              "path": [
+                "api",
+                "restaurants",
+                "{{restaurantId}}",
+                "menu"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add menu item",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{restaurantUrl}}/api/restaurants/{{restaurantId}}/menu-items",
+              "host": [
+                "{{restaurantUrl}}"
+              ],
+              "path": [
+                "api",
+                "restaurants",
+                "{{restaurantId}}",
+                "menu-items"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Paneer Tikka\",\n  \"type\": \"Starter\",\n  \"price\": 120.0,\n  \"description\": \"Grilled paneer\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code < 300 && pm.response.text()) {",
+                  "  pm.collectionVariables.set('menuItemId', pm.response.json().menuItemId);",
+                  "  console.log('set menuItemId =', pm.collectionVariables.get('menuItemId'));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update menu item",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{restaurantUrl}}/api/menu-items/{{menuItemId}}",
+              "host": [
+                "{{restaurantUrl}}"
+              ],
+              "path": [
+                "api",
+                "menu-items",
+                "{{menuItemId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Paneer Tikka\",\n  \"type\": \"Starter\",\n  \"price\": 140.0,\n  \"description\": \"Grilled paneer (large)\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deactivate menu item",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{restaurantUrl}}/api/menu-items/{{menuItemId}}",
+              "host": [
+                "{{restaurantUrl}}"
+              ],
+              "path": [
+                "api",
+                "menu-items",
+                "{{menuItemId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deactivate restaurant",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{restaurantUrl}}/api/restaurants/{{restaurantId}}",
+              "host": [
+                "{{restaurantUrl}}"
+              ],
+              "path": [
+                "api",
+                "restaurants",
+                "{{restaurantId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{restaurantUrl}}/actuator/health",
+              "host": [
+                "{{restaurantUrl}}"
+              ],
+              "path": [
+                "actuator",
+                "health"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "user-service (8082)",
+      "item": [
+        {
+          "name": "List users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{userUrl}}/api/users",
+              "host": [
+                "{{userUrl}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get user by id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{userUrl}}/api/users/{{userId}}",
+              "host": [
+                "{{userUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{userId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Register user",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{userUrl}}/api/users",
+              "host": [
+                "{{userUrl}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"testuser@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"CUSTOMER\",\n  \"phone\": \"9876500000\",\n  \"gender\": \"MALE\",\n  \"address\": \"Patiala\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code < 300 && pm.response.text()) {",
+                  "  pm.collectionVariables.set('newUserId', pm.response.json().userId);",
+                  "  console.log('set newUserId =', pm.collectionVariables.get('newUserId'));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update user",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{userUrl}}/api/users/{{userId}}",
+              "host": [
+                "{{userUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{userId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test User (updated)\",\n  \"phone\": \"9876511111\",\n  \"gender\": \"MALE\",\n  \"address\": \"New Address, Patiala\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deactivate user",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{userUrl}}/api/users/{{userId}}",
+              "host": [
+                "{{userUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{userId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{userUrl}}/actuator/health",
+              "host": [
+                "{{userUrl}}"
+              ],
+              "path": [
+                "actuator",
+                "health"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "order-service (8083)",
+      "item": [
+        {
+          "name": "Add item to cart",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{orderUrl}}/api/users/{{userId}}/cart/items",
+              "host": [
+                "{{orderUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{userId}}",
+                "cart",
+                "items"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"menuItemId\": 6,\n  \"quantity\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get cart",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{orderUrl}}/api/users/{{userId}}/cart",
+              "host": [
+                "{{orderUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{userId}}",
+                "cart"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Place order (from cart)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{orderUrl}}/api/users/{{userId}}/orders",
+              "host": [
+                "{{orderUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{userId}}",
+                "orders"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deliveryAddress\": \"YPS Colony, Patiala\",\n  \"paymentMethod\": \"COD\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code < 300 && pm.response.text()) {",
+                  "  pm.collectionVariables.set('orderId', pm.response.json().orderId);",
+                  "  console.log('set orderId =', pm.collectionVariables.get('orderId'));",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List my orders",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{orderUrl}}/api/users/{{userId}}/orders",
+              "host": [
+                "{{orderUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{userId}}",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get order by id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{orderUrl}}/api/orders/{{orderId}}",
+              "host": [
+                "{{orderUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{orderId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update order status",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{orderUrl}}/api/orders/{{orderId}}/status?orderStatus=DELIVERED",
+              "host": [
+                "{{orderUrl}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "{{orderId}}",
+                "status"
+              ],
+              "query": [
+                {
+                  "key": "orderStatus",
+                  "value": "DELIVERED"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Remove cart item",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{orderUrl}}/api/users/{{userId}}/cart/items/{{menuItemId}}",
+              "host": [
+                "{{orderUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{userId}}",
+                "cart",
+                "items",
+                "{{menuItemId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Clear cart",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{orderUrl}}/api/users/{{userId}}/cart",
+              "host": [
+                "{{orderUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{userId}}",
+                "cart"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{orderUrl}}/actuator/health",
+              "host": [
+                "{{orderUrl}}"
+              ],
+              "path": [
+                "actuator",
+                "health"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Negative cases (validation & errors)",
+      "description": "Edge tests asserting 400/404/409. Duplicate-email tests use seeded records: restaurant kohlisweet12@gmail.com, user karan@example.com.",
+      "item": [
+        {
+          "name": "restaurant-service (8081)",
+          "item": [
+            {
+              "name": "Get restaurant by id - not found (404)",
+              "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.test('404 Not Found', function () { pm.response.to.have.status(404); });"]}}],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {"raw":"{{restaurantUrl}}/api/restaurants/999999","host":["{{restaurantUrl}}"],"path":["api","restaurants","999999"]}
+              },
+              "response": []
+            },
+            {
+              "name": "Create restaurant - invalid email (400)",
+              "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.test('400 Bad Request', function () { pm.response.to.have.status(400); });"]}}],
+              "request": {
+                "method": "POST",
+                "header": [{"key":"Content-Type","value":"application/json"}],
+                "url": {"raw":"{{restaurantUrl}}/api/restaurants","host":["{{restaurantUrl}}"],"path":["api","restaurants"]},
+                "body": {"mode":"raw","raw":"{\"name\":\"Bad Email Diner\",\"email\":\"not-an-email\",\"phone\":\"9990001112\",\"address\":\"MG Road\"}","options":{"raw":{"language":"json"}}}
+              },
+              "response": []
+            },
+            {
+              "name": "Create restaurant - blank name (400)",
+              "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.test('400 Bad Request', function () { pm.response.to.have.status(400); });"]}}],
+              "request": {
+                "method": "POST",
+                "header": [{"key":"Content-Type","value":"application/json"}],
+                "url": {"raw":"{{restaurantUrl}}/api/restaurants","host":["{{restaurantUrl}}"],"path":["api","restaurants"]},
+                "body": {"mode":"raw","raw":"{\"name\":\"\",\"email\":\"blankname@diner.com\",\"phone\":\"9990001112\",\"address\":\"MG Road\"}","options":{"raw":{"language":"json"}}}
+              },
+              "response": []
+            },
+            {
+              "name": "Create restaurant - duplicate email (409)",
+              "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.test('409 Conflict', function () { pm.response.to.have.status(409); });"]}}],
+              "request": {
+                "method": "POST",
+                "header": [{"key":"Content-Type","value":"application/json"}],
+                "url": {"raw":"{{restaurantUrl}}/api/restaurants","host":["{{restaurantUrl}}"],"path":["api","restaurants"]},
+                "body": {"mode":"raw","raw":"{\"name\":\"Duplicate Email Diner\",\"email\":\"kohlisweet12@gmail.com\",\"phone\":\"9990001112\",\"address\":\"MG Road\"}","options":{"raw":{"language":"json"}}}
+              },
+              "response": []
+            },
+            {
+              "name": "Add menu item - negative price (400)",
+              "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.test('400 Bad Request', function () { pm.response.to.have.status(400); });"]}}],
+              "request": {
+                "method": "POST",
+                "header": [{"key":"Content-Type","value":"application/json"}],
+                "url": {"raw":"{{restaurantUrl}}/api/restaurants/{{restaurantId}}/menu-items","host":["{{restaurantUrl}}"],"path":["api","restaurants","{{restaurantId}}","menu-items"]},
+                "body": {"mode":"raw","raw":"{\"name\":\"Bad Price\",\"type\":\"Starter\",\"price\":-5,\"description\":\"x\"}","options":{"raw":{"language":"json"}}}
+              },
+              "response": []
+            },
+            {
+              "name": "Add menu item - blank name (400)",
+              "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.test('400 Bad Request', function () { pm.response.to.have.status(400); });"]}}],
+              "request": {
+                "method": "POST",
+                "header": [{"key":"Content-Type","value":"application/json"}],
+                "url": {"raw":"{{restaurantUrl}}/api/restaurants/{{restaurantId}}/menu-items","host":["{{restaurantUrl}}"],"path":["api","restaurants","{{restaurantId}}","menu-items"]},
+                "body": {"mode":"raw","raw":"{\"name\":\"\",\"type\":\"Starter\",\"price\":50,\"description\":\"x\"}","options":{"raw":{"language":"json"}}}
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "user-service (8082)",
+          "item": [
+            {
+              "name": "Get user by id - not found (404)",
+              "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.test('404 Not Found', function () { pm.response.to.have.status(404); });"]}}],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {"raw":"{{userUrl}}/api/users/999999","host":["{{userUrl}}"],"path":["api","users","999999"]}
+              },
+              "response": []
+            },
+            {
+              "name": "Register user - invalid email (400)",
+              "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.test('400 Bad Request', function () { pm.response.to.have.status(400); });"]}}],
+              "request": {
+                "method": "POST",
+                "header": [{"key":"Content-Type","value":"application/json"}],
+                "url": {"raw":"{{userUrl}}/api/users","host":["{{userUrl}}"],"path":["api","users"]},
+                "body": {"mode":"raw","raw":"{\"name\":\"Bad Email\",\"email\":\"not-an-email\",\"password\":\"password123\",\"role\":\"CUSTOMER\"}","options":{"raw":{"language":"json"}}}
+              },
+              "response": []
+            },
+            {
+              "name": "Register user - short password (400)",
+              "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.test('400 Bad Request', function () { pm.response.to.have.status(400); });"]}}],
+              "request": {
+                "method": "POST",
+                "header": [{"key":"Content-Type","value":"application/json"}],
+                "url": {"raw":"{{userUrl}}/api/users","host":["{{userUrl}}"],"path":["api","users"]},
+                "body": {"mode":"raw","raw":"{\"name\":\"Short Pass\",\"email\":\"shortpass@example.com\",\"password\":\"123\",\"role\":\"CUSTOMER\"}","options":{"raw":{"language":"json"}}}
+              },
+              "response": []
+            },
+            {
+              "name": "Register user - invalid role (400)",
+              "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.test('400 Bad Request', function () { pm.response.to.have.status(400); });"]}}],
+              "request": {
+                "method": "POST",
+                "header": [{"key":"Content-Type","value":"application/json"}],
+                "url": {"raw":"{{userUrl}}/api/users","host":["{{userUrl}}"],"path":["api","users"]},
+                "body": {"mode":"raw","raw":"{\"name\":\"Bad Role\",\"email\":\"badrole@example.com\",\"password\":\"password123\",\"role\":\"SUPERHERO\"}","options":{"raw":{"language":"json"}}}
+              },
+              "response": []
+            },
+            {
+              "name": "Register user - duplicate email (409)",
+              "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.test('409 Conflict', function () { pm.response.to.have.status(409); });"]}}],
+              "request": {
+                "method": "POST",
+                "header": [{"key":"Content-Type","value":"application/json"}],
+                "url": {"raw":"{{userUrl}}/api/users","host":["{{userUrl}}"],"path":["api","users"]},
+                "body": {"mode":"raw","raw":"{\"name\":\"Duplicate\",\"email\":\"karan@example.com\",\"password\":\"password123\",\"role\":\"CUSTOMER\"}","options":{"raw":{"language":"json"}}}
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "order-service (8083)",
+          "item": [
+            {
+              "name": "Add item to cart - quantity zero (400)",
+              "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.test('400 Bad Request', function () { pm.response.to.have.status(400); });"]}}],
+              "request": {
+                "method": "POST",
+                "header": [{"key":"Content-Type","value":"application/json"}],
+                "url": {"raw":"{{orderUrl}}/api/users/{{userId}}/cart/items","host":["{{orderUrl}}"],"path":["api","users","{{userId}}","cart","items"]},
+                "body": {"mode":"raw","raw":"{\"menuItemId\":6,\"quantity\":0}","options":{"raw":{"language":"json"}}}
+              },
+              "response": []
+            },
+            {
+              "name": "Add item to cart - missing menuItemId (400)",
+              "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.test('400 Bad Request', function () { pm.response.to.have.status(400); });"]}}],
+              "request": {
+                "method": "POST",
+                "header": [{"key":"Content-Type","value":"application/json"}],
+                "url": {"raw":"{{orderUrl}}/api/users/{{userId}}/cart/items","host":["{{orderUrl}}"],"path":["api","users","{{userId}}","cart","items"]},
+                "body": {"mode":"raw","raw":"{\"quantity\":1}","options":{"raw":{"language":"json"}}}
+              },
+              "response": []
+            },
+            {
+              "name": "Place order - invalid paymentMethod (400)",
+              "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.test('400 Bad Request', function () { pm.response.to.have.status(400); });"]}}],
+              "request": {
+                "method": "POST",
+                "header": [{"key":"Content-Type","value":"application/json"}],
+                "url": {"raw":"{{orderUrl}}/api/users/{{userId}}/orders","host":["{{orderUrl}}"],"path":["api","users","{{userId}}","orders"]},
+                "body": {"mode":"raw","raw":"{\"deliveryAddress\":\"YPS Colony, Patiala\",\"paymentMethod\":\"BITCOIN\"}","options":{"raw":{"language":"json"}}}
+              },
+              "response": []
+            },
+            {
+              "name": "Place order - blank deliveryAddress (400)",
+              "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.test('400 Bad Request', function () { pm.response.to.have.status(400); });"]}}],
+              "request": {
+                "method": "POST",
+                "header": [{"key":"Content-Type","value":"application/json"}],
+                "url": {"raw":"{{orderUrl}}/api/users/{{userId}}/orders","host":["{{orderUrl}}"],"path":["api","users","{{userId}}","orders"]},
+                "body": {"mode":"raw","raw":"{\"deliveryAddress\":\"\",\"paymentMethod\":\"COD\"}","options":{"raw":{"language":"json"}}}
+              },
+              "response": []
+            },
+            {
+              "name": "Update order status - invalid status (400)",
+              "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.test('400 Bad Request', function () { pm.response.to.have.status(400); });"]}}],
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "url": {"raw":"{{orderUrl}}/api/orders/{{orderId}}/status?orderStatus=FLYING","host":["{{orderUrl}}"],"path":["api","orders","{{orderId}}","status"],"query":[{"key":"orderStatus","value":"FLYING"}]}
+              },
+              "response": []
+            },
+            {
+              "name": "Get order by id - not found (404)",
+              "event": [{"listen":"test","script":{"type":"text/javascript","exec":["pm.test('404 Not Found', function () { pm.response.to.have.status(404); });"]}}],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {"raw":"{{orderUrl}}/api/orders/999999","host":["{{orderUrl}}"],"path":["api","orders","999999"]}
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "restaurantUrl",
+      "value": "http://localhost:8081"
+    },
+    {
+      "key": "userUrl",
+      "value": "http://localhost:8082"
+    },
+    {
+      "key": "orderUrl",
+      "value": "http://localhost:8083"
+    },
+    {
+      "key": "restaurantId",
+      "value": "5"
+    },
+    {
+      "key": "menuItemId",
+      "value": "6"
+    },
+    {
+      "key": "userId",
+      "value": "2"
+    },
+    {
+      "key": "orderId",
+      "value": "1"
+    },
+    {
+      "key": "newUserId",
+      "value": ""
+    }
+  ]
+}
